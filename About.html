@@ -1,13 +1,41 @@
-<link rel="stylesheet" href="bootstrap.min.css">
-<script src="jquery.js"></script>
+<link rel="stylesheet" href="/jain_ci/layout/process/css/bootstrap.min.css">
+<script src="/jain_ci/layout/process/js/jquery.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+    .slide_format{
+        transform:translateX(0px);
+        transition:transform .3s cubic-bezier(0.8, 0, 1.0, 1.0);
+    }
+    .slide_picture{
+        opacity:.7;
+        transition:opacity .3s ease-out;
+    }
+    #scrollleft::-webkit-scrollbar { 
+        width: 0 !important 
+    }
+    @media (max-width:1199px){
+        .desK_com{
+            display:none;
+        }
+        .pad_phone{
+            display:block;
+        }
+    }
+    @media (min-width:1200px){
+        .desK_com{
+            display:block;
+        }
+        .pad_phone{
+            display:none;
+        }
+    }
 </style>
-<div class="w-100" style="background:rgba(0,0,0,.8);overflow:hidden">
+<div class="w-100 desK_com" style="background:rgba(0,0,0,.8);overflow:hidden">
     <div style="width:1196px;height:500px;margin:0 auto;display:flex">
         <div style="width:35%;color:white;padding:50px 50px">
             <h3 style="border-bottom:3px solid red;display:inline-block;margin-bottom:50px" >關於循環時尚</h3>
             <div class="w-100" style="overflow:hidden">
-                <div style="width:300%;transform:translateX(0px);transition:transform .3s cubic-bezier(0.8, 0, 1.0, 1.0);display:flex" id="word">
+                <div style="width:300%;display:flex" id="word" class="slide_format">
                     <div class="w-100">
                         <p>「時尚」一詞是形容正在流行的服飾、裝飾或一件走在前頭的思維或行為。流行的服飾應該是走在前面的，設計師發揮創意，設計一件件的單品，希望讓穿上的消費者與自己的品牌都是引領風潮佼佼者。遺憾地，時尚產業卻失了引領的角色，每年生產 800 億件物品並且不斷增長， 預計未來幾年人均服裝消費量將增加，進一步加劇對環境及社會的影響。 </p>
                     </div>
@@ -27,15 +55,15 @@
         </div>
         <div style="width:65%">
         <div style="width:150%;overflow:hidden">
-            <div style="width:10000px;transform:translateX(0px);transition:transform .3s cubic-bezier(1, 0, 1.0, 1.0)" id="img">
+            <div style="width:500%;" id="img" class="slide_format">
                 <div class="h-100 p-5" style="display:inline-block">
-                    <img src="001.jpg" alt=""  style="opacity:.7;transition:opacity .3s ease-out" class="h-100">
+                    <img src="001.jpg" alt=""  class="h-100 slide_picture">
                 </div>
                 <div class="h-100 p-5" style="display:inline-block">
-                    <img src="002.jpg" alt=""  style="opacity:.7;transition:opacity .3s ease-out" class="h-100">
+                    <img src="002.jpg" alt=""  class="h-100 slide_picture">
                 </div>
                 <div class="h-100 p-5" style="display:inline-block">
-                    <img src="003.jpg" alt=""  style="opacity:.7;transition:opacity .3s ease-out" class="h-100">
+                    <img src="003.jpg" alt=""  class="h-100 slide_picture">
                 </div>
             </div>
         </div>
@@ -43,7 +71,37 @@
         </div>
     </div>
 </div>
+<div class="w-100 pad_phone" style="background:rgba(0,0,0,.8);overflow:hidden">
+    <div class="w-100" style="overflow:scroll" id="scrollleft">
+        <div style="width:300%;display:flex" id="long-width">
+            <div style="width:70vw;color:white;" class="p-3">
+                <img src="001.jpg" alt=""  class="w-100">
+                <p>「時尚」一詞是形容正在流行的服飾、裝飾或一件走在前頭的思維或行為。</p>
+            </div>
+            <div style="width:70vw;color:white" class="p-3">
+                <img src="002.jpg" alt=""  class="w-100">
+                <p>對應環境的衝擊，時尚產業永續性的舉措，在全球各地開花結果包括有</p>
+            </div>
+            <div style="width:70vw;color:white" class="p-3">
+                <img src="003.jpg" alt=""  class="w-100">
+                <p>台灣的紡織業者雖多為各大品牌的代工或其供應鏈，雖因近年受創新、精益生產能力及環保意識製造，將供應鏈整併</p>
+            </div>
+        </div>
+    </div>
+    <div class="progress mb-3 mx-1" style="height:5px;">
+        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+</div>
 <script>
+w_300=parseInt($("#long-width>div").css("width"))*3;
+$("#long-width").css("width",w_300+"px");
+init_width=Math.round(($(window).width()/w_300)*100);
+$(".progress-bar").css("width",init_width+"%");
+$("#scrollleft").scroll(function(){
+    blue_line=Math.round((($("#scrollleft").scrollLeft()+$(window).width())/w_300)*100);
+    $(".progress-bar").css("width",blue_line+"%");
+    console.log(blue_line);
+})
 let count_time=0;
 $("button[role='left']").css({"color":"rgba(255,255,255,.5)","cursor":"unset"}); 
 $("#img img").eq(0).css("opacity","1");
